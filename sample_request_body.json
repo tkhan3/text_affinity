@@ -1,0 +1,42 @@
+{
+  "req_id": "xxxx",
+  "source": [
+    "Obama speaks to media in Illinois",
+    "President greets the press in Chicago"
+  ],
+  "target": [
+    "President greets the press in Chicago",
+    "tanveer"
+  ],
+  "algorithms": [
+    {
+      "name": "tfidf",
+      "preprocess": true,
+      "hyper_parameters": [],
+      "preprocess_steps": [
+        "convert_lower"
+      ]
+    },
+    {
+      "name": "use",
+      "preprocess": true,
+      "hyper_parameters": [],
+      "preprocess_steps": []
+    },
+    {
+      "name": "wmd_gensim",
+      "preprocess": true,
+      "hyper_parameters": [],
+      "preprocess_steps": []
+    },
+    {
+      "name": "spacy",
+      "preprocess": true,
+      "hyper_parameters": [],
+      "preprocess_steps": []
+    }
+  ],
+  "custom_stopwords": [
+    "tanveer"
+  ]
+}

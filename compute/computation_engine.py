@@ -3,6 +3,7 @@ from utils.general.preprocessing import *
 from compute.compute_tfidf_affinity import compute_tfidf_affinity
 from compute.compute_wmd_gensim_affinity import compute_wmd_gensim_affinity
 from compute.compute_spacy_affinity import compute_spacy_affinity
+from compute.compute_use_affinity import compute_use_affinity
 
 def computation_engine(input_data, loaded_models, stopwords, storage_path, general_config, logger):
 	x_list = input_data.get('source')
@@ -28,7 +29,9 @@ def computation_engine(input_data, loaded_models, stopwords, storage_path, gener
 		stopwords.extend(custom_stopwords)
 		logger.info("Appended Requested Stop Words To Our Dictionary")
 
+	similarity = []
 	for algo in algorithms_to_process:
+		similarity_map = dict()
 		logger.info('Processing Algorithm %s' %algo['name'])
 		try:
 			if algo['preprocess']:
@@ -40,6 +43,9 @@ def computation_engine(input_data, loaded_models, stopwords, storage_path, gener
 					logger.info('Using Preprocessing Steps Specified in Configuration File %s' %preprocess_steps)
 				x_list_postprocess = preprocessing(x_list, stopwords, loaded_models['spacy'],preprocess_steps)
 				y_list_postprocess = preprocessing(y_list, stopwords, loaded_models['spacy'], preprocess_steps)
+			else:
+				x_list_postprocess = x_list
+				y_list_postprocess = y_list
 		except KeyError:
 			x_list_postprocess = x_list
 			y_list_postprocess = y_list
@@ -55,13 +61,18 @@ def computation_engine(input_data, loaded_models, stopwords, storage_path, gener
 
 
 		function_to_call = "compute_" + algo['name'] + "_affinity"
-		similarity = eval(function_to_call)(x_list_postprocess, y_list_postprocess, loaded_models[algo['name']],hyper_parameters,logger)*100
+		similarity_matrix = eval(function_to_call)(x_list_postprocess, y_list_postprocess, loaded_models[algo['name']],hyper_parameters,logger)
+		#print (type(similarity_matrix))
+		similarity_map[algo['name']] = similarity_matrix.tolist()
 		#similarity = compute_tfidf_affinity(x_list_postprocess, y_list_postprocess, loaded_models[algo['name']])
-		logger.info(similarity.shape)
-		logger.info('Similarity Returned %s' %similarity)
+		logger.info(similarity_matrix.shape)
+		logger.info('Similarity Returned %s' %similarity_matrix)
+		similarity.append(similarity_map)
 
 		#print (x_list_postprocess)
 		#print (y_list_postprocess)
 		#compute_tfidf_affinity()
 
-	return True
+	logger.info(similarity)
+
+	return similarity

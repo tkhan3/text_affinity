@@ -6,10 +6,10 @@ from utils.storage.check_path_exist import *
 from gensim.models import Word2Vec,KeyedVectors
 from gensim.test.utils import datapath
 import spacy
-
+import tensorflow_hub as hub
 
 def read_general_config():
-    with open("../configuration/general_config.yaml", "r") as general_config:
+    with open("configuration/general_config_ubuntu.yaml", "r") as general_config:
         return yaml.load(general_config, Loader=yaml.FullLoader)
 
 
@@ -25,7 +25,7 @@ def load_models(general_config, logger):
 
     #models_to_load = ['tfidf','wmd_gensim']
     #models_to_load = ['tfidf']
-    models_to_load = ['wmd_gensim']
+    #models_to_load = ['wmd_gensim']
     models_to_load.append('spacy')
     loaded_models = {}
 
@@ -72,3 +72,15 @@ def load_spacy(general_config,logger):
 
     logger.info("Spacy Models Loaded")
     return wmd_spacy
+
+def load_use(general_config,logger):
+
+    use_model_path = general_config['models_details']['use']['path']
+    path_info = check_path_exist(use_model_path)
+
+    if path_info['status_code'] == 1:
+        logger.info('USE model doesn\'t exist at %s' % path_info['path'])
+
+    use_model = hub.load(use_model_path)
+    logger.info("USE Model Loaded")
+    return use_model
