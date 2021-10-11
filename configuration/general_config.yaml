@@ -1,0 +1,55 @@
+generals:
+  storage_path: '/home/alyaan/code/storage/text-affinity-storage'
+  logging_path: '/home/alyaan/code/storage/text-affinity-storage/logging'
+  model_path: '/home/alyaan/code/storage/text-affinity-storage/models'
+  logging_level: 'INFO'
+
+stopwords:
+  path: '/home/alyaan/code/text_affinity/stopwords/stopwords_list.csv'
+
+models_load:
+  selected_models_to_load : ["tfidf","sentence_transformer","universal_sentence_encoder","glove","fasttext","wmd_gensim","wmd_wml","spacy"]
+  load_all : ["tfidf","sentence_transformer","universal_sentence_encoder","glove","fasttext","wmd_gensim","wmd_wml","spacy"]
+
+models_details:
+
+  sentence_transformer:
+    loader: 'load_sentence_transformer'
+    url: None
+    path: '/models/sentence_transformer'
+    preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
+    parameters: None
+
+  universal_sentence_encoder: 'load_universal_sentence_encoder'
+
+  glove: 'load_glove'
+
+  fasttext: 'load_fastext'
+
+  wmd_gensim:
+    loader: 'load_wmd_gensim'
+    url: None
+    path: '/home/alyaan/code/storage/text-affinity-storage/models/GoogleNews-vectors-negative300.bin.gz'
+    preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
+    parameters:
+      normalize: True
+
+  spacy:
+    loader: 'load_spacy'
+    url: None
+    path: None
+    preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols']
+    parameters:
+      type: 'en_core_web_lg'
+
+  wmd_wml: 'load_wmd_wml'
+
+  tfidf:
+    loader: 'load_tfidf'
+    url: None
+    path: None
+    preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
+    parameters:
+      min_df: 1
+      ngram_range_start: 1
+      ngram_range_end: 1
