@@ -38,8 +38,7 @@ models_details:
       glove: '/home/alyaan/code/storage/text-affinity-storage/models/use/'
       fasttext: '/home/alyaan/code/storage/text-affinity-storage/models/fastext/'
     preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
-    parameters:
-      type: ['glove','fasttext']
+    parameters: None
 
   wmd_gensim:
     loader: 'load_wmd_gensim'
