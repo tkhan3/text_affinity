@@ -8,8 +8,9 @@ from gensim.test.utils import datapath
 import spacy
 import tensorflow_hub as hub
 
-def read_general_config():
-    with open("configuration/general_config_ubuntu.yaml", "r") as general_config:
+def read_general_config(filename):
+    filepath = "configuration/" + filename
+    with open(filepath, "r") as general_config:
         return yaml.load(general_config, Loader=yaml.FullLoader)
 
 

@@ -10,9 +10,11 @@ from compute.computation_engine import computation_engine
 
 
 os.environ['LOAD_SELECTED_MODELS'] = 'tfidf,use,wmd_gensim'
+os.environ['CONFIG_FILE'] = 'general_config_mac.yaml'
+filename = os.environ['CONFIG_FILE']
 
 app = FastAPI()
-general_config = read_general_config()
+general_config = read_general_config(filename)
 storage_path,stopwords,logger = setup(general_config)
 logger.info("Sample Stop Words Are {}".format(stopwords[1:10]))
 loaded_models = load_models(general_config,logger)

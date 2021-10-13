@@ -8,8 +8,8 @@ stopwords:
   path: '/Users/tanveerkhan/Desktop/code/code/text_affinity/stopwords/stopwords_list.csv'
 
 models_load:
-  selected_models_to_load : ["tfidf","sentence_transformer","universal_sentence_encoder","glove","fasttext","wmd_gensim","wmd_wml","spacy"]
-  load_all : ["tfidf","sentence_transformer","universal_sentence_encoder","glove","fasttext","wmd_gensim","wmd_wml","spacy"]
+  selected_models_to_load : ["tfidf","sentence_transformer","use","glove","fasttext","wmd_gensim","wmd_wml","spacy"]
+  load_all : ["tfidf","sentence_transformer","use","glove","fasttext","wmd_gensim","wmd_wml","spacy"]
 
 models_details:
 
@@ -20,16 +20,34 @@ models_details:
     preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
     parameters: None
 
-  universal_sentence_encoder: 'load_universal_sentence_encoder'
+  use:
+    loader: 'load_use'
+    url: 'https://tfhub.dev/google/universal-sentence-encoder/1?tf-hub-format=compressed'
+    path: '/Users/tanveerkhan/Desktop/code/code/storage/text-affinity-storage/models/use/'
+    preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
+    parameters: None
 
-  glove: 'load_glove'
+  fasttext:
+    loader: 'load_word_embedding'
+    url: None
+    path: '/Users/tanveerkhan/Desktop/code/code/storage/text-affinity-storage/models/fasttext/wiki-news-300d-1M-subword.vec'
+    preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
+    parameters:
+      dimension: 300
 
-  fasttext: 'load_fastext'
+  glove:
+    loader: 'load_word_embedding'
+    url: None
+    path: '/Users/tanveerkhan/Desktop/code/code/storage/text-affinity-storage/models/glove/'
+    preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
+    parameters:
+      dimension: 300
+
 
   wmd_gensim:
     loader: 'load_wmd_gensim'
     url: None
-    path: '/Users/tanveerkhan/Desktop/code/code/storage/text-affinity-storage/models/GoogleNews-vectors-negative300.bin.gz'
+    path: '/Users/tanveerkhan/Desktop/code/code/storage/text-affinity-storage/models/word2vec/GoogleNews-vectors-negative300.bin.gz'
     preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
     parameters:
       normalize: True

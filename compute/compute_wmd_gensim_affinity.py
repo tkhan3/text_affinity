@@ -2,6 +2,7 @@ import numpy
 import math
 
 def compute_wmd_gensim_affinity(x,y,model,hyper_parameters,logger):
+	logger.info(model)
 	distance_matrix = numpy.zeros((len(x), len(y)))
 	index_x = 0
 	index_y = 0
