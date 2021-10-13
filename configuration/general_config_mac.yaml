@@ -12,7 +12,7 @@ models_load:
   load_all : ["tfidf","sentence_transformer","use","glove","fasttext","wmd_gensim","wmd_wml","spacy"]
 
 models_details:
-
+  word_embedding_models: ['glove','fasttext']
   sentence_transformer:
     loader: 'load_sentence_transformer'
     url: None
@@ -30,7 +30,7 @@ models_details:
   fasttext:
     loader: 'load_word_embedding'
     url: None
-    path: '/Users/tanveerkhan/Desktop/code/code/storage/text-affinity-storage/models/fasttext/wiki-news-300d-1M-subword.vec'
+    path: '/Users/tanveerkhan/Desktop/code/code/storage/text-affinity-storage/models/fasttext/wiki-news-300d-1M.vec'
     preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
     parameters:
       dimension: 300
@@ -42,7 +42,6 @@ models_details:
     preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
     parameters:
       dimension: 300
-
 
   wmd_gensim:
     loader: 'load_wmd_gensim'

@@ -1,8 +1,9 @@
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
-print (" i am here ")
-def compute_tfidf_affinity(x,y,tfid_vectorizer,hyper_parameters,logger):
 
+def compute_tfidf_affinity(model_name,x,y,tfid_vectorizer,hyper_parameters,logger):
+
+    logger.info('executing %s based similarity' % model_name)
     if len(hyper_parameters) > 0:
         tfid_vectorizer = TfidfVectorizer(decode_error='replace', encoding='utf-8', ngram_range=hyper_parameters['ngram_range'],
                                           min_df=hyper_parameters['min_df'])

@@ -7,6 +7,7 @@ from gensim.models import Word2Vec,KeyedVectors
 from gensim.test.utils import datapath
 import spacy
 import tensorflow_hub as hub
+import numpy as np
 
 def read_general_config(filename):
     filepath = "configuration/" + filename
@@ -86,5 +87,25 @@ def load_use(general_config,logger,model_name):
     logger.info("USE Model Loaded")
     return use_model
 
-def load_embedding(general_config,logger,model_name):
-    return True
+def load_word_embedding(general_config,logger,model_name):
+    embedding_model_path = general_config['models_details'][model_name]['path']
+    print (embedding_model_path)
+    path_info = check_path_exist(embedding_model_path)
+
+    if path_info['status_code'] == 1:
+        logger.info('%s Model Doesnt exist at %s' %(model_name,embedding_model_path))
+
+    embeddings = open(path_info["path"], encoding='utf-8')
+
+    word_embedding = {}
+
+    for line in embeddings:
+        values = line.split()
+        word = values[0]
+        embedding = np.asarray(values[1:], dtype='float32')
+        word_embedding[word] = embedding
+
+    embeddings.close()
+    logger.info("Embedding Loaded For The Model %s" %model_name)
+
+    return word_embedding

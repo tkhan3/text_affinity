@@ -1,8 +1,8 @@
 import numpy
 import math
 
-def compute_wmd_gensim_affinity(x,y,model,hyper_parameters,logger):
-	logger.info(model)
+def compute_wmd_gensim_affinity(model_name,x,y,model,hyper_parameters,logger):
+	logger.info('executing %s based similarity' % model_name)
 	distance_matrix = numpy.zeros((len(x), len(y)))
 	index_x = 0
 	index_y = 0

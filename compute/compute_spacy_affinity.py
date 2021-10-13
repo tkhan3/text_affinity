@@ -1,8 +1,8 @@
 import numpy
 from tqdm import tqdm
 
-def compute_spacy_affinity(x,y,spacy,hyper_parameters,logger):
-    logger.info('executing spacy based similarity')
+def compute_spacy_affinity(model_name,x,y,spacy,hyper_parameters,logger):
+    logger.info('executing %s based similarity' %model_name)
     try:
         similarity_matrix = numpy.zeros((len(x),len(y)))
         x_obj = [spacy(text) for text in x]

@@ -4,6 +4,7 @@ from compute.compute_tfidf_affinity import compute_tfidf_affinity
 from compute.compute_wmd_gensim_affinity import compute_wmd_gensim_affinity
 from compute.compute_spacy_affinity import compute_spacy_affinity
 from compute.compute_use_affinity import compute_use_affinity
+from compute.compute_avg_wordembedding_affinity import compute_avg_wordembedding_affinity
 
 def computation_engine(input_data, loaded_models, stopwords, storage_path, general_config, logger):
 	x_list = input_data.get('source')
@@ -60,8 +61,13 @@ def computation_engine(input_data, loaded_models, stopwords, storage_path, gener
 			logger.info("Using default hyperparameters from config file")
 
 
-		function_to_call = "compute_" + algo['name'] + "_affinity"
-		similarity_matrix = eval(function_to_call)(x_list_postprocess, y_list_postprocess, loaded_models[algo['name']],hyper_parameters,logger)
+		if algo["name"] in general_config["models_details"]["word_embedding_models"]:
+			function_to_call = "compute_avg_wordembedding_affinity"
+			hyper_parameters["dimensions"] = general_config["models_details"][algo["name"]]["parameters"]["dimension"]
+		else:
+			function_to_call = "compute_" + algo['name'] + "_affinity"
+
+		similarity_matrix = eval(function_to_call)(algo['name'],x_list_postprocess, y_list_postprocess, loaded_models[algo['name']],hyper_parameters,logger)
 		#print (type(similarity_matrix))
 		similarity_map[algo['name']] = similarity_matrix.tolist()
 		#similarity = compute_tfidf_affinity(x_list_postprocess, y_list_postprocess, loaded_models[algo['name']])

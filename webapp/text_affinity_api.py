@@ -9,7 +9,7 @@ from typing import Optional,List,Dict
 from compute.computation_engine import computation_engine
 
 
-os.environ['LOAD_SELECTED_MODELS'] = 'tfidf,use,wmd_gensim'
+os.environ['LOAD_SELECTED_MODELS'] = 'fasttext'
 os.environ['CONFIG_FILE'] = 'general_config_mac.yaml'
 filename = os.environ['CONFIG_FILE']
 
