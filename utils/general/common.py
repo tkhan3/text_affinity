@@ -31,13 +31,13 @@ def load_models(general_config, logger):
 
     for item in models_to_load:
         print(general_config["models_details"][item]["loader"])
-        item_model = globals()[general_config["models_details"][item]["loader"]](general_config, logger)
+        item_model = globals()[general_config["models_details"][item]["loader"]](general_config, logger,item)
         loaded_models[item] = item_model
 
     return loaded_models
 
 
-def load_wmd_gensim(general_config, logger):
+def load_wmd_gensim(general_config, logger,model_name):
     path_info = check_path_exist(general_config['models_details']['wmd_gensim']['path'])
     if path_info['status_code'] == 1:
         logger.info('word2vec model doesn\'t exist at %s' %path_info['path'])
@@ -51,7 +51,7 @@ def load_wmd_gensim(general_config, logger):
     return model
 
 
-def load_tfidf(general_config, logger):
+def load_tfidf(general_config, logger,model_name):
     ngram_range = (int(general_config['models_details']['tfidf']['parameters']['ngram_range_start']),
                    int(general_config['models_details']['tfidf']['parameters']['ngram_range_end']))
     min_df = int(general_config['models_details']['tfidf']['parameters']['min_df'])
@@ -60,7 +60,7 @@ def load_tfidf(general_config, logger):
     return tfid_vectorizer
 
 
-def load_spacy(general_config,logger):
+def load_spacy(general_config,logger,model_name):
     spacy_model = general_config["models_details"]["spacy"]["parameters"]["type"]
     try:
         wmd_spacy = spacy.load(spacy_model)
@@ -73,7 +73,7 @@ def load_spacy(general_config,logger):
     logger.info("Spacy Models Loaded")
     return wmd_spacy
 
-def load_use(general_config,logger):
+def load_use(general_config,logger,model_name):
 
     use_model_path = general_config['models_details']['use']['path']
     path_info = check_path_exist(use_model_path)
@@ -84,3 +84,6 @@ def load_use(general_config,logger):
     use_model = hub.load(use_model_path)
     logger.info("USE Model Loaded")
     return use_model
+
+def load_embedding(general_config,logger,model_name):
+    return True

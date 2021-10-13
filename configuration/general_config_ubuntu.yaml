@@ -27,18 +27,21 @@ models_details:
     preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
     parameters: None
 
-  glove: 'load_glove'
-
-  fasttext: 'load_fastext'
-
-  word_embedding:
+  fasttext:
     loader: 'load_word_embedding'
     url: None
-    path:
-      glove: '/home/alyaan/code/storage/text-affinity-storage/models/use/'
-      fasttext: '/home/alyaan/code/storage/text-affinity-storage/models/fastext/'
+    path: '/home/alyaan/code/storage/text-affinity-storage/models/fasttext/wiki-news-300d-1M-subword.vec'
     preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
-    parameters: None
+    parameters:
+      dimension: 300
+
+  glove:
+    loader: 'load_word_embedding'
+    url: None
+    path: '/home/alyaan/code/storage/text-affinity-storage/models/glove/'
+    preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
+    parameters:
+      dimension: 300
 
   wmd_gensim:
     loader: 'load_wmd_gensim'
