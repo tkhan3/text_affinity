@@ -8,11 +8,26 @@ stopwords:
   path: '/Users/tanveerkhan/Desktop/code/code/text_affinity/stopwords/stopwords_list.csv'
 
 models_load:
-  selected_models_to_load : ["tfidf","sentence_transformer","use","glove","fasttext","wmd_gensim","wmd_wml","spacy"]
-  load_all : ["tfidf","sentence_transformer","use","glove","fasttext","wmd_gensim","wmd_wml","spacy"]
+  selected_models_to_load : ["tfidf","sentence_transformer","use","glove","fasttext","wmd_gensim","spacy","weighted_tfidf"]
+  load_all : ["tfidf","sentence_transformer","use","glove","fasttext","wmd_gensim","spacy","weighted_tfidf"]
 
 models_details:
-  word_embedding_models: ['glove','fasttext']
+
+  word_embedding_models:
+    name: ['glove','fasttext']
+    compute_function_name: 'avg_wordembedding'
+
+  dependent_model:
+    weighted_tfidf: 'fasttext'  ## This list contains model dependent on which model
+
+  weighted_tfidf:
+    loader: 'load_weighted_tfidf'
+    url: None
+    path: None
+    preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
+    parameters:
+      type: 'fasttext'
+
   sentence_transformer:
     loader: 'load_sentence_transformer'
     url: None

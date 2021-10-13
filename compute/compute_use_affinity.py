@@ -2,7 +2,7 @@ import numpy
 from tqdm import tqdm
 from sklearn.metrics.pairwise import cosine_similarity
 
-def compute_use_affinity(model_name,x,y,use_model,hyper_parameters,logger):
+def compute_use_affinity(model_name,x,y,use_model,hyper_parameters,logger,general_config):
 	logger.info('executing %s based similarity' % model_name)
 	try:
 		embedding_x = use_model(x)

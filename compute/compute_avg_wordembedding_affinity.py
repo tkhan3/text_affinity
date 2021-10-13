@@ -19,7 +19,7 @@ def compute_avgsent_embeddings(x,y,word_embeddings,embedding_dim):
         y_embed.append(v)
     return x_embed,y_embed
 
-def compute_avg_wordembedding_affinity(model_name,x,y,word_embeddings,hyper_parameters,logger):
+def compute_avg_wordembedding_affinity(model_name,x,y,word_embeddings,hyper_parameters,logger,general_config):
     embedding_dim = hyper_parameters["dimensions"]
     try:
         x_embed,y_embed = compute_avgsent_embeddings(x,y,word_embeddings,embedding_dim)

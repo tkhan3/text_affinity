@@ -11,8 +11,11 @@ import numpy as np
 
 def read_general_config(filename):
     filepath = "configuration/" + filename
-    with open(filepath, "r") as general_config:
-        return yaml.load(general_config, Loader=yaml.FullLoader)
+    try:
+        with open(filepath, "r") as general_config:
+            return yaml.load(general_config, Loader=yaml.FullLoader)
+    except Exception as e:
+        print ("file name not found %s and exception %s"%(filepath,e))
 
 
 ## add an environment variable with LOAD_SELECTED_MODELS with comma separated list of models to be loaded.
@@ -86,6 +89,10 @@ def load_use(general_config,logger,model_name):
     use_model = hub.load(use_model_path)
     logger.info("USE Model Loaded")
     return use_model
+
+def load_weighted_tfidf(general_config,logger,model_name):
+    logger.info('Weighted TFIDF Model Loaded')
+    return model_name
 
 def load_word_embedding(general_config,logger,model_name):
     embedding_model_path = general_config['models_details'][model_name]['path']

@@ -1,7 +1,7 @@
 import numpy
 from tqdm import tqdm
 
-def compute_spacy_affinity(model_name,x,y,spacy,hyper_parameters,logger):
+def compute_spacy_affinity(model_name,x,y,spacy,hyper_parameters,logger,general_config):
     logger.info('executing %s based similarity' %model_name)
     try:
         similarity_matrix = numpy.zeros((len(x),len(y)))

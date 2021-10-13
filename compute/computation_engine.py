@@ -5,6 +5,7 @@ from compute.compute_wmd_gensim_affinity import compute_wmd_gensim_affinity
 from compute.compute_spacy_affinity import compute_spacy_affinity
 from compute.compute_use_affinity import compute_use_affinity
 from compute.compute_avg_wordembedding_affinity import compute_avg_wordembedding_affinity
+from compute.compute_weighted_tfidf_affinity import compute_weighted_tfidf_affinity
 
 def computation_engine(input_data, loaded_models, stopwords, storage_path, general_config, logger):
 	x_list = input_data.get('source')
@@ -60,14 +61,23 @@ def computation_engine(input_data, loaded_models, stopwords, storage_path, gener
 		except KeyError:
 			logger.info("Using default hyperparameters from config file")
 
+		loaded_model_obj = loaded_models[algo['name']]
+		function_name = algo['name']
 
-		if algo["name"] in general_config["models_details"]["word_embedding_models"]:
-			function_to_call = "compute_avg_wordembedding_affinity"
+		if algo["name"] in general_config["models_details"]["word_embedding_models"]["name"]:
+			function_name = general_config["models_details"]["word_embedding_models"]["compute_function_name"]
 			hyper_parameters["dimensions"] = general_config["models_details"][algo["name"]]["parameters"]["dimension"]
-		else:
-			function_to_call = "compute_" + algo['name'] + "_affinity"
+		elif algo["name"] in general_config["models_details"]["dependent_model"].keys():
+			try:
+				prerequisite_model = general_config["models_details"]["dependent_model"][algo["name"]]
+				loaded_model_obj = loaded_models[prerequisite_model]
+				hyper_parameters["dimensions"] = general_config["models_details"][prerequisite_model]["parameters"]["dimension"]
+			except KeyError:
+				logger.info("Dependent Model Is Not Loaded %s" %algo['name'])
+				sys.exit(-1)
 
-		similarity_matrix = eval(function_to_call)(algo['name'],x_list_postprocess, y_list_postprocess, loaded_models[algo['name']],hyper_parameters,logger)
+		function_to_call = "compute_" + function_name + "_affinity"
+		similarity_matrix = eval(function_to_call)(algo['name'],x_list_postprocess, y_list_postprocess, loaded_model_obj,hyper_parameters,logger,general_config)
 		#print (type(similarity_matrix))
 		similarity_map[algo['name']] = similarity_matrix.tolist()
 		#similarity = compute_tfidf_affinity(x_list_postprocess, y_list_postprocess, loaded_models[algo['name']])

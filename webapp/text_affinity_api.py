@@ -9,8 +9,8 @@ from typing import Optional,List,Dict
 from compute.computation_engine import computation_engine
 
 
-os.environ['LOAD_SELECTED_MODELS'] = 'fasttext'
-os.environ['CONFIG_FILE'] = 'general_config_mac.yaml'
+os.environ['LOAD_SELECTED_MODELS'] = 'fasttext,weighted_tfidf'
+os.environ['CONFIG_FILE'] = 'general_config_ubuntu.yaml'
 filename = os.environ['CONFIG_FILE']
 
 app = FastAPI()
