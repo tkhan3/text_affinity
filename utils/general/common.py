@@ -8,6 +8,7 @@ from gensim.test.utils import datapath
 import spacy
 import tensorflow_hub as hub
 import numpy as np
+from sentence_transformers import SentenceTransformer
 
 def read_general_config(filename):
     filepath = "configuration/" + filename
@@ -116,3 +117,8 @@ def load_word_embedding(general_config,logger,model_name):
     logger.info("Embedding Loaded For The Model %s" %model_name)
 
     return word_embedding
+
+def load_sentence_transformer(general_config,logger,model_name):
+    sentence_transformer_model = SentenceTransformer(general_config['models_details']['sentence_transformer']['parameters']['name'])
+    logger.info('sentence transformer loaded')
+    return sentence_transformer_model

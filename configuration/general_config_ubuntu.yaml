@@ -31,8 +31,9 @@ models_details:
     loader: 'load_sentence_transformer'
     url: None
     path: '/models/sentence_transformer'
-    preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
-    parameters: None
+    preprocessing_steps: []
+    parameters:
+      name: 'all-MiniLM-L6-v2'
 
   use:
     loader: 'load_use'

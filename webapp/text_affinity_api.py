@@ -7,10 +7,15 @@ import json
 from enum import Enum
 from typing import Optional,List,Dict
 from compute.computation_engine import computation_engine
+import platform
 
+os.environ['LOAD_SELECTED_MODELS'] = 'fasttext,weighted_tfidf,sentence_transformer'
 
-os.environ['LOAD_SELECTED_MODELS'] = 'fasttext,weighted_tfidf'
-os.environ['CONFIG_FILE'] = 'general_config_ubuntu.yaml'
+if platform.system() == "Darwin":
+    os.environ['CONFIG_FILE'] = 'general_config_mac.yaml'
+else:
+    os.environ['CONFIG_FILE'] = 'general_config_ubuntu.yaml'
+
 filename = os.environ['CONFIG_FILE']
 
 app = FastAPI()

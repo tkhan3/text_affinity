@@ -6,6 +6,7 @@ from compute.compute_spacy_affinity import compute_spacy_affinity
 from compute.compute_use_affinity import compute_use_affinity
 from compute.compute_avg_wordembedding_affinity import compute_avg_wordembedding_affinity
 from compute.compute_weighted_tfidf_affinity import compute_weighted_tfidf_affinity
+from compute.compute_sentence_transformer_affinity import compute_sentence_transformer_affinity
 
 def computation_engine(input_data, loaded_models, stopwords, storage_path, general_config, logger):
 	x_list = input_data.get('source')
