@@ -1,3 +1,10 @@
+pip install poethepoet
+poe force-cuda11
+
+
+poetry add torchvision --platform linux --python "^3.8" -vvv
+poetry add torch --platform linux --python "^3.8" -vvv
+
 {
   "req_id": "xxxx",
   "source": [

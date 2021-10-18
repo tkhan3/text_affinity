@@ -14,11 +14,14 @@ os.environ['LOAD_SELECTED_MODELS'] = 'fasttext,weighted_tfidf,sentence_transform
 if platform.system() == "Darwin":
     os.environ['CONFIG_FILE'] = 'general_config_mac.yaml'
 else:
-    os.environ['CONFIG_FILE'] = 'general_config_ubuntu.yaml'
+    #os.environ['CONFIG_FILE'] = 'general_config_ubuntu.yaml'
+    os.environ['CONFIG_FILE'] = 'general_config_docker.yaml'
+
 
 filename = os.environ['CONFIG_FILE']
 
 app = FastAPI()
+
 general_config = read_general_config(filename)
 storage_path,stopwords,logger = setup(general_config)
 logger.info("Sample Stop Words Are {}".format(stopwords[1:10]))

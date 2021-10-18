@@ -1,11 +1,11 @@
 generals:
-  storage_path: '/Users/tanveerkhan/Desktop/code/code/storage/text-affinity-storage/'
-  logging_path: '/Users/tanveerkhan/Desktop/code/code/storage/text-affinity-storage/logging/'
-  model_path: '/Users/tanveerkhan/Desktop/code/code/storage/text-affinity-storage/models/'
+  storage_path: './text-affinity-storage/'
+  logging_path: './text-affinity-storage/logging/'
+  model_path: './text-affinity-storage/models/'
   logging_level: 'INFO'
 
 stopwords:
-  path: '/Users/tanveerkhan/Desktop/code/code/text_affinity/stopwords/stopwords_list.csv'
+  path: '/text_affinity/stopwords/stopwords_list.csv'
 
 models_load:
   selected_models_to_load : ["tfidf","sentence_transformer","use","glove","fasttext","wmd_gensim","spacy","weighted_tfidf"]
@@ -38,14 +38,14 @@ models_details:
   use:
     loader: 'load_use'
     url: 'https://tfhub.dev/google/universal-sentence-encoder/1?tf-hub-format=compressed'
-    path: '/Users/tanveerkhan/Desktop/code/code/storage/text-affinity-storage/models/use/'
+    path: './text-affinity-storage/models/use/'
     preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
     parameters: None
 
   fasttext:
     loader: 'load_word_embedding'
     url: None
-    path: '/Users/tanveerkhan/Desktop/code/code/storage/text-affinity-storage/models/fasttext/wiki-news-300d-1M.vec'
+    path: './text-affinity-storage/models/fasttext/wiki-news-300d-1M.vec'
     preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
     parameters:
       dimension: 300
@@ -53,7 +53,7 @@ models_details:
   glove:
     loader: 'load_word_embedding'
     url: None
-    path: '/Users/tanveerkhan/Desktop/code/code/storage/text-affinity-storage/models/glove/'
+    path: './text-affinity-storage/models/glove/'
     preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
     parameters:
       dimension: 300
@@ -61,7 +61,7 @@ models_details:
   wmd_gensim:
     loader: 'load_wmd_gensim'
     url: None
-    path: '/Users/tanveerkhan/Desktop/code/code/storage/text-affinity-storage/models/word2vec/GoogleNews-vectors-negative300.bin.gz'
+    path: './text-affinity-storage/models/word2vec/GoogleNews-vectors-negative300.bin.gz'
     preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
     parameters:
       normalize: True

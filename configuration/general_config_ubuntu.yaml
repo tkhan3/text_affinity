@@ -1,7 +1,7 @@
 generals:
-  storage_path: '/home/alyaan/code/storage/text-affinity-storage'
-  logging_path: '/home/alyaan/code/storage/text-affinity-storage/logging'
-  model_path: '/home/alyaan/code/storage/text-affinity-storage/models'
+  storage_path: '/media/alyaan/hdd/storage/text-affinity-storage'
+  logging_path: '/media/alyaan/hdd/storage/text-affinity-storage/logging'
+  model_path: '/media/alyaan/hdd/storage/text-affinity-storage/models'
   logging_level: 'INFO'
 
 stopwords:
@@ -38,14 +38,14 @@ models_details:
   use:
     loader: 'load_use'
     url: 'https://tfhub.dev/google/universal-sentence-encoder/1?tf-hub-format=compressed'
-    path: '/home/alyaan/code/storage/text-affinity-storage/models/use/'
+    path: '/media/alyaan/hdd/storage/text-affinity-storage/models/use/'
     preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
     parameters: None
 
   fasttext:
     loader: 'load_word_embedding'
     url: None
-    path: '/home/alyaan/code/storage/text-affinity-storage/models/fasttext/wiki-news-300d-1M-subword.vec'
+    path: '/media/alyaan/hdd/storage/text-affinity-storage/models/fasttext/wiki-news-300d-1M-subword.vec'
     preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
     parameters:
       dimension: 300
@@ -53,7 +53,7 @@ models_details:
   glove:
     loader: 'load_word_embedding'
     url: None
-    path: '/home/alyaan/code/storage/text-affinity-storage/models/glove/'
+    path: '/media/alyaan/hdd/storage/text-affinity-storage/models/glove/'
     preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
     parameters:
       dimension: 300
@@ -61,7 +61,7 @@ models_details:
   wmd_gensim:
     loader: 'load_wmd_gensim'
     url: None
-    path: '/home/alyaan/code/storage/text-affinity-storage/models/word2vec/GoogleNews-vectors-negative300.bin.gz'
+    path: '/media/alyaan/hdd/storage/text-affinity-storage/models/word2vec/GoogleNews-vectors-negative300.bin.gz'
     preprocessing_steps: ['convert_lower','remove_stopwords','remove_symbols','lemmatize']
     parameters:
       normalize: True
